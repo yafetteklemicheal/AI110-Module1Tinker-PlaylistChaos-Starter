@@ -143,15 +143,10 @@ def most_common_artist(songs: List[Song]) -> Tuple[str, int]:
     counts: Dict[str, int] = {}
     for song in songs:
         artist = str(song.get("artist", ""))
-        if not artist:
-            continue
-        counts[artist] = counts.get(artist, 0) + 1
+        if artist:
+            counts[artist] = counts.get(artist, 0) + 1
 
-    if not counts:
-        return "", 0
-
-    items = sorted(counts.items(), key=lambda item: item[1], reverse=True)
-    return items[0]
+    return max(counts.items(), key=lambda item: item[1], default=("", 0))
 
 
 def search_songs(
